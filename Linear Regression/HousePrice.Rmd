@@ -1,0 +1,67 @@
+---
+title: "Linear Regression"
+author: "Ruolan Zeng"
+output: pdf_document
+---
+
+## 1.Preprocessing
+
+1.1 remove NA values
+```{r}
+data <- read.csv("https://github.com/lypf2018/HousePricesKaggle/raw/master/dataset/train.csv")
+# View(data)
+probNA <- function(x){
+  sum(is.na(x))/nrow(data)
+}
+probNAcol <- apply(data, 2, probNA)
+probNAcol[probNAcol>0.3]
+```
+
+In above 5 columns, there are many NA values, so we decided to remove these columns, Then remove all other NA values
+
+```{r}
+dim(data)
+data[c("Alley","FireplaceQu","PoolQC","Fence","MiscFeature")] <- NULL
+data["Id"] <- NULL
+dim(data)
+data <- na.omit(data)
+dim(data)
+sum(is.na(data))
+# View(data)
+```
+
+## 
+
+```{r}
+require(MASS)
+require(ISLR)
+require(corrplot)
+
+dataNum <- apply(data, 2, as.numeric)
+dataNum <- as.data.frame(dataNum[,apply(dataNum, 2, function(x) !any(is.na(x)))])
+```
+
+```{r}
+M <- cor(dataNum)
+corrplot(M, method = "number")
+```
+
+```{r}
+dim(dataNum)
+dataNum[c("EnclosedPorch","MoSold","YrSold","X3SsnPorch","ScreenPorch","PoolArea","MiscVal","BsmtFinSF2"   ,"BsmtUnfSF","MSSubClass","OverallCond","LowQualFinSF")] <- NULL
+dim(dataNum)
+```
+
+```{r}
+M <- cor(dataNum)
+corrplot(M, method = "number")
+```
+
+
+## 
+
+```{r}
+
+```
+
+
