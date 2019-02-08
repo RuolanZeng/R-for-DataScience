@@ -50,15 +50,91 @@ corrplot(M, method = "number")
 dim(dataNum)
 dataNum[c("EnclosedPorch","MoSold","YrSold","X3SsnPorch","ScreenPorch","PoolArea","MiscVal","BsmtFinSF2"   ,"BsmtUnfSF","MSSubClass","OverallCond","LowQualFinSF")] <- NULL
 dim(dataNum)
+M <- cor(dataNum)
+```
+
+## 
+
+```{r}
+# Numbered correlation
+corMat <- as.data.frame(corrplot(M,method = "number"))
+names(corMat) <- names(dataNum)
+# Find out which attributes have correlation of more than 50% with SalePrice
+row.names(corMat)[abs(corMat$SalePrice) > 0.6]
+```
+
+
+```{r}
+# analysis salePrice
+summary(dataNum$SalePrice)
+hist(dataNum$SalePrice)
+# Deviate from the normal distribution.
+# Have appreciable positive skewness.
+# Show peakedness.
 ```
 
 ```{r}
-M <- cor(dataNum)
-corrplot(M, method = "number")
+# Relationship with numerical variables
+lm.fit = lm(SalePrice~OverallQual, data = dataNum)
+plot(lm.fit) 
+summary(lm.fit) 
 ```
 
+```{r}
+plot(dataNum$OverallQual,dataNum$SalePrice)
+#观察：小和大的房子少，中间大小的房子多。房子面积越大，价格越分散，有很贵的也有很便宜的，而中间大小的房子价格比较集中。这个图和上面那个图有什么关系？
+abline(lm.fit,lwd = 2, col="red")
+```
 
-## 
+```{r}
+plot(dataNum$GrLivArea, dataNum$SalePrice)
+```
+
+```{r}
+lm.fit2 = lm(SalePrice~YearBuilt, data = dataNum)
+plot(dataNum$YearBuilt, dataNum$SalePrice)
+abline(lm.fit2,lwd = 2, col="red")
+```
+
+```{r}
+lm.fit3 = lm(SalePrice~GarageCars, data = dataNum)
+plot(dataNum$GarageCars, dataNum$SalePrice)
+abline(lm.fit3,lwd = 2, col="red")
+```
+
+```{r}
+lm.fit4 = lm(SalePrice~OverallQual+GarageCars, data = dataNum)
+summary(lm.fit4)
+plot(lm.fit4)
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
 
 ```{r}
 
