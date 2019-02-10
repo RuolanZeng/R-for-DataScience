@@ -24,8 +24,8 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
-            pdftitle={Linear Regression},
-            pdfauthor={Ruolan Zeng(rxz171630),},
+            pdftitle={House Price Data Linear Regression Analysis},
+            pdfauthor={Ruolan Zeng(rxz171630), Zhichao Yuan(zxy180004), Yi Su(yxs173830)},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -114,10 +114,10 @@
 
 \setlength{\droptitle}{-2em}
 
-  \title{Linear Regression}
+  \title{House Price Data Linear Regression Analysis}
     \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-    \author{Ruolan Zeng(rxz171630),}
+    \author{Ruolan Zeng(rxz171630), Zhichao Yuan(zxy180004), Yi Su(yxs173830)}
     \preauthor{\centering\large\emph}
   \postauthor{\par}
     \date{}
@@ -127,6 +127,17 @@
 \begin{document}
 \maketitle
 
+\subsection{0.Introduction}\label{introduction}
+
+we use the dataset: House Prices: Advanced Regression Techniques
+\url{https://www.kaggle.com/c/house-prices-advanced-regression-techniques/overview}
+
+We put it on the url:
+\url{https://github.com/lypf2018/HousePricesKaggle/raw/master/dataset/train.csv}
+
+There are 1460 rows and 81 columns and the last column ``SalePrice'' is
+the output variable
+
 \subsection{1.Preprocessing}\label{preprocessing}
 
 \subsubsection{1.1 Remove NA Values}\label{remove-na-values}
@@ -134,7 +145,6 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"https://github.com/lypf2018/HousePricesKaggle/raw/master/dataset/train.csv"}\NormalTok{)}
-\CommentTok{# View(data)}
 \NormalTok{probNA <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
   \KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x))}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(data)}
 \NormalTok{\}}
@@ -870,8 +880,16 @@ Analysis}\label{single-feature-analysis}
 
 \includegraphics{HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf}
 
-\textbf{finding:}
-小和大的房子少，中间大小的房子多。房子面积越大，价格越分散，价格差距非常大（6e+05的差距）有很贵的也有很便宜的，而中间大小的房子价格比较集中。
+\textbf{finding:} OverallQual:Rates the overall material and finish of
+the house. (1 very poor - 10 very excellent). Frome above statistics and
+graph we can see: The relationship between Salesprice and OverallQual is
+linear relationship and OverallQual is an important factor. When overall
+quality of houses are around medium quality(rate:3-7), house prices are
+concentrated. However, when overall quality of houses are above
+excellent(rate: 9-10), house prices are dispersed, which means the range
+of house prices can be very large (more than 6e+05). This may be because
+some other factors like the living area, number of rooms and overall
+conditions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -910,7 +928,9 @@ Analysis}\label{single-feature-analysis}
 
 \includegraphics{HousePrice_files/figure-latex/unnamed-chunk-10-1.pdf}
 
-\textbf{finding:} 车库四个车位 没有必要 所以买不起好价钱
+\textbf{finding:} When car capacity in one garage is 4, the house price
+decreases, which means people may think it's unnecessary to have such a
+big garage in a house.
 
 \paragraph{2.3.2 numeric feature}\label{numeric-feature}
 
@@ -951,7 +971,7 @@ Analysis}\label{single-feature-analysis}
 
 \includegraphics{HousePrice_files/figure-latex/unnamed-chunk-11-1.pdf}
 
-\textbf{finding}： 合理完美的线性，点均匀的分布在线的两边
+\textbf{finding}： This distribution is almost perfect linear.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1057,6 +1077,82 @@ Analysis}\label{multiple-feature-analysis}
 ## Multiple R-squared:  0.7753, Adjusted R-squared:  0.7741 
 ## F-statistic: 625.1 on 6 and 1087 DF,  p-value: < 2.2e-16
 \end{verbatim}
+
+\subsection{Compare Models}\label{compare-models}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(lm.fit,lm.fit5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: SalePrice ~ OverallQual
+## Model 2: SalePrice ~ OverallQual + GarageCars + GrLivArea
+##   Res.Df        RSS Df  Sum of Sq      F    Pr(>F)    
+## 1   1092 2.7765e+12                                   
+## 2   1090 1.9862e+12  2 7.9034e+11 216.86 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AIC}\NormalTok{(lm.fit,lm.fit5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         df      AIC
+## lm.fit   3 26800.80
+## lm.fit5  5 26438.33
+\end{verbatim}
+
+\textbf{finding:} From above statitics we can see: result of fuction
+anova : p-value is 2.2e-16 result of AIC: AIC value of model is smaller
+The multiple linear regression model with three varibles(OverallQual,
+GarageCars, GrLivArea) is better than linear regression model with only
+one varible(OverallQual).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(lm.fit5,lm.fit6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: SalePrice ~ OverallQual + GarageCars + GrLivArea
+## Model 2: SalePrice ~ OverallQual + GarageCars + GrLivArea + TotalBsmtSF + 
+##     BsmtUnfSF + MSSubClass
+##   Res.Df        RSS Df  Sum of Sq      F    Pr(>F)    
+## 1   1090 1.9862e+12                                   
+## 2   1087 1.6986e+12  3 2.8758e+11 61.345 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AIC}\NormalTok{(lm.fit5,lm.fit6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         df      AIC
+## lm.fit5  5 26438.33
+## lm.fit6  8 26273.22
+\end{verbatim}
+
+\textbf{finding:} From above statitics we can see: result of fuction
+anova : p-value is 2.2e-16 result of AIC: AIC value of model is smaller
+The multiple linear regression model with six varibles(OverallQual,
+GarageCars, GrLivArea, TotalBsmtSF, BsmtUnfSF, MSSubClass) is better
+than multiple linear regression model with three varibles(OverallQual,
+GarageCars, GrLivArea).
 
 
 \end{document}

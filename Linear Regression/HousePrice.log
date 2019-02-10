@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  10 FEB 2019 15:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  10 FEB 2019 17:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -622,90 +622,151 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 135.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 133.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 133.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 133
+.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 133
+.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 133.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 133.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 133.
+LaTeX Font Info:    Try loading font information for U+msa on input line 133.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 133.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+Underfull \hbox (badness 1286) in paragraph at lines 132--134
+\T1/lmr/m/n/10 (+20) we use the dataset: House Prices: Ad-vanced Re-gres-sion T
+ech-niques []$https : / / www . kaggle . com / c /
+ []
+
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 146.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 136.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 147.
 [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<HousePrice_files/figure-latex/unnamed-chunk-4-1.pdf, id=24, 438.63875pt x 285.
+<HousePrice_files/figure-latex/unnamed-chunk-4-1.pdf, id=27, 438.63875pt x 285.
 065pt>
 File: HousePrice_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pd
 f)
 <use HousePrice_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-4-1.pdf  u
-sed on input line 279.
+sed on input line 289.
 (pdftex.def)             Requested size: 438.63766pt x 285.0643pt.
 [3 <./HousePrice_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<HousePrice_files/figure-latex/unnamed-chunk-5-1.pdf, id=40, 355.3275pt x 324.2
+<HousePrice_files/figure-latex/unnamed-chunk-5-1.pdf, id=41, 355.3275pt x 324.2
 1124pt>
 File: HousePrice_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pd
 f)
 <use HousePrice_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-5-1.pdf  u
-sed on input line 335.
+sed on input line 345.
 (pdftex.def)             Requested size: 355.33745pt x 324.22034pt.
-<HousePrice_files/figure-latex/unnamed-chunk-6-1.pdf, id=41, 352.31625pt x 322.
+<HousePrice_files/figure-latex/unnamed-chunk-6-1.pdf, id=42, 352.31625pt x 322.
 20375pt>
 File: HousePrice_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pd
 f)
 <use HousePrice_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-6-1.pdf  u
-sed on input line 343.
+sed on input line 353.
 (pdftex.def)             Requested size: 352.31538pt x 322.20296pt.
 [4 <./HousePrice_files/figure-latex/unnamed-chunk-5-1.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 391
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 401
 .
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [5 <./HousePrice_files/figure-latex/unnamed-chunk-6-1.pdf>] [6] [7]
-<HousePrice_files/figure-latex/unnamed-chunk-7-1.pdf, id=77, 459.7175pt x 313.1
+<HousePrice_files/figure-latex/unnamed-chunk-7-1.pdf, id=80, 459.7175pt x 313.1
 7pt>
 File: HousePrice_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pd
 f)
 <use HousePrice_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-7-1.pdf  u
-sed on input line 581.
+sed on input line 591.
 (pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
 [8 <./HousePrice_files/figure-latex/unnamed-chunk-7-1.pdf>] [9] [10]
-<HousePrice_files/figure-latex/unnamed-chunk-8-1.pdf, id=102, 459.7175pt x 313.
+<HousePrice_files/figure-latex/unnamed-chunk-8-1.pdf, id=105, 459.7175pt x 313.
 17pt>
 File: HousePrice_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pd
 f)
 <use HousePrice_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-8-1.pdf  u
-sed on input line 829.
+sed on input line 839.
 (pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
 [11 <./HousePrice_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf, id=121, 407.5225pt x 219.
+<HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf, id=124, 407.5225pt x 219.
 82124pt>
 File: HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pd
 f)
 <use HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf  u
-sed on input line 871.
+sed on input line 881.
 (pdftex.def)             Requested size: 407.53394pt x 219.8274pt.
+[12 <./HousePrice_files/figure-latex/unnamed-chunk-9-1.pdf>]
+<HousePrice_files/figure-latex/unnamed-chunk-10-1.pdf, id=136, 407.5225pt x 219
+.82124pt>
+File: HousePrice_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
+df)
+<use HousePrice_files/figure-latex/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-10-1.pdf  
+used on input line 929.
+(pdftex.def)             Requested size: 407.53394pt x 219.8274pt.
+[13 <./HousePrice_files/figure-latex/unnamed-chunk-10-1.pdf>]
+<HousePrice_files/figure-latex/unnamed-chunk-11-1.pdf, id=151, 437.635pt x 249.
+93375pt>
+File: HousePrice_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type p
+df)
+<use HousePrice_files/figure-latex/unnamed-chunk-11-1.pdf>
+Package pdftex.def Info: HousePrice_files/figure-latex/unnamed-chunk-11-1.pdf  
+used on input line 972.
+(pdftex.def)             Requested size: 437.6406pt x 249.93694pt.
 
-! Package inputenc Error: Unicode character 小 (U+5C0F)
+! Package inputenc Error: Unicode character ： (U+FF1A)
 (inputenc)                not set up for use with LaTeX.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.874 小
-         和大的房子少，中间大小的房子多。房子面积越大�...
- 
+l.974 \textbf{finding}：
+                          This distribution is almost perfect linear. 
 Here is how much of TeX's memory you used:
- 12389 strings out of 492649
- 182243 string characters out of 6129622
- 292572 words of memory out of 5000000
- 16113 multiletter control sequences out of 15000+600000
- 26027 words of font info for 37 fonts, out of 8000000 for 9000
+ 12537 strings out of 492649
+ 185901 string characters out of 6129622
+ 293084 words of memory out of 5000000
+ 16206 multiletter control sequences out of 15000+600000
+ 38212 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,6n,38p,345b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
+
 !  ==> Fatal error occurred, no output PDF file produced!
