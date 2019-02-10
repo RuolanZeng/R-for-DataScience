@@ -1,12 +1,14 @@
 ---
 title: "Linear Regression"
-author: "Ruolan Zeng"
-output: pdf_document
+author: "Ruolan Zeng(rxz171630),"
+output:
+  html_document:
+    df_print: paged
 ---
 
 ## 1.Preprocessing
 
-1.1 remove NA values
+### 1.1 Remove NA Values
 ```{r}
 data <- read.csv("https://github.com/lypf2018/HousePricesKaggle/raw/master/dataset/train.csv")
 # View(data)
@@ -14,130 +16,156 @@ probNA <- function(x){
   sum(is.na(x))/nrow(data)
 }
 probNAcol <- apply(data, 2, probNA)
-probNAcol[probNAcol>0.3]
+as.data.frame(probNAcol[probNAcol>0.3])
 ```
 
-In above 5 columns, there are many NA values, so we decided to remove these columns, Then remove all other NA values
+Obviously, there are many NA values(percentage of NA values bigger than 30%) in above 5 columns. We decided to remove these columns then remove all other NA values.
 
 ```{r}
-dim(data)
 data[c("Alley","FireplaceQu","PoolQC","Fence","MiscFeature")] <- NULL
 data["Id"] <- NULL
-dim(data)
 data <- na.omit(data)
-dim(data)
-sum(is.na(data))
-# View(data)
 ```
 
-## 
+### 1.2 Remove Non-numeric Freatures 
+
+Since there are enough features(80 features) in our data, we decide to directly remove all non-numeric features. The numeric features also include some categorical data, which use numbers to present different categories.
+```{r}
+dataNum <- as.data.frame(data[,apply(data, 2, function(x) !any(is.na(as.numeric(x))))])
+```
+
+## 2. SalesPrice Analysis 
+```{r}
+summary(dataNum$SalePrice)
+hist(dataNum$SalePrice, ylim = c(0, 8*10^-6), probability = TRUE)
+lines(density(dataNum$SalePrice))
+
+```
+
+**finding:**
+1. From summary of SalesPrice: Minimal house price is largger than 0, so it would not destroy our model. 
+2. From histogram of SalesPrice: the distribution
+1) Deviate from the normal distribution.
+2) Have appreciable positive skewness.
+3) Show peakedness.
+
+It seems that there are few extremly rich peolple bought very expensive houses, which makes the distribution has a long tail on the right, that is, positive skewness.
+
+## 2. Correlation Analysis 
+
+### 2.1 Correlation Plot
 
 ```{r}
 require(MASS)
 require(ISLR)
 require(corrplot)
-
-dataNum <- apply(data, 2, as.numeric)
-dataNum <- as.data.frame(dataNum[,apply(dataNum, 2, function(x) !any(is.na(x)))])
-```
-
-```{r}
 M <- cor(dataNum)
-corrplot(M, method = "number")
-```
-
-```{r}
-dim(dataNum)
-dataNum[c("EnclosedPorch","MoSold","YrSold","X3SsnPorch","ScreenPorch","PoolArea","MiscVal","BsmtFinSF2"   ,"BsmtUnfSF","MSSubClass","OverallCond","LowQualFinSF")] <- NULL
-dim(dataNum)
-M <- cor(dataNum)
-```
-
-## 
-
-```{r}
-# Numbered correlation
 corMat <- as.data.frame(corrplot(M,method = "number"))
-names(corMat) <- names(dataNum)
-# Find out which attributes have correlation of more than 50% with SalePrice
-row.names(corMat)[abs(corMat$SalePrice) > 0.6]
-```
-
-
-```{r}
-# analysis salePrice
-summary(dataNum$SalePrice)
-hist(dataNum$SalePrice)
-# Deviate from the normal distribution.
-# Have appreciable positive skewness.
-# Show peakedness.
 ```
 
 ```{r}
-# Relationship with numerical variables
+corrplot(cor(dataNum[row.names(corMat)[abs(corMat$SalePrice) > 0.50]]), method = "number")
+```
+
+**finding:**
+From the  correlation plot we can see the 11 features with the strongest effect(correlation > 0.5) on SalePrice:
+
+1.OverallQual: Rates the overall material and finish of the house. (1 very poor - 10 very excellent).
+2.YearBuilt: Original construction date.
+3.YearRemodAdd: Remodel date (same as construction date if no remodeling or additions).
+4.TotalBsmtSF: Total square feet of basement area.
+5.X1stFlrSF: First Floor square feet.
+6.GrLivArea: Above grade (ground) living area square feet.
+7.FullBath: Full bathrooms above grade.
+8.TotRmsAbvGrd: Total rooms above grade (does not include bathrooms).
+9.GarageYrBlt: Year garage was built.
+10.GarageCars: Size of garage in car capacity.
+11.GarageArea: Size of garage in square feet.
+
+All of them are positive correlations.
+
+We can see there are also some strong relations between these features. For example, correlation between TotalBsmtSF and X1stFlrSF is 0.91, correlation between GrLivArea and TotRmsAbvGrd is 0.83. That make sense since a big basement area is always together with a big area first floor, and the size of the living area will most likely be a constraint on the number of rooms above ground.
+
+### 2.2 Scatter Plots
+
+We can print a matrix of scatter plots to see what the relationships between features look like.
+
+```{r}
+require(GGally)
+corr.idx <- row.names(corMat)[abs(corMat$SalePrice) > 0.5]
+lm.plt <- function(data, mapping, ...){
+   plt <- ggplot(data = data, mapping = mapping) + 
+    geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
+    geom_smooth(method=loess, fill="red", color="red") +
+    geom_smooth(method=lm, fill="blue", color="blue") +
+    theme_minimal()
+  return(plt)
+}
+ggpairs(dataNum, corr.idx[c(12,1:6)], lower = list(continuous = lm.plt))
+```
+
+```{r}
+ggpairs(dataNum, corr.idx[c(12,7:11)], lower = list(continuous = lm.plt))
+```
+
+### 2.3 Single Feature Analysis 
+
+#### 2.3.1 categorical feature
+
+```{r}
 lm.fit = lm(SalePrice~OverallQual, data = dataNum)
-plot(lm.fit) 
 summary(lm.fit) 
-```
-
-```{r}
-plot(dataNum$OverallQual,dataNum$SalePrice)
-#观察：小和大的房子少，中间大小的房子多。房子面积越大，价格越分散，有很贵的也有很便宜的，而中间大小的房子价格比较集中。这个图和上面那个图有什么关系？
+boxplot(dataNum$SalePrice~dataNum$OverallQual)
 abline(lm.fit,lwd = 2, col="red")
 ```
 
-```{r}
-plot(dataNum$GrLivArea, dataNum$SalePrice)
-```
+**finding:**
+小和大的房子少，中间大小的房子多。房子面积越大，价格越分散，价格差距非常大（6e+05的差距）有很贵的也有很便宜的，而中间大小的房子价格比较集中。
 
 ```{r}
-lm.fit2 = lm(SalePrice~YearBuilt, data = dataNum)
-plot(dataNum$YearBuilt, dataNum$SalePrice)
+lm.fit2 = lm(SalePrice~GarageCars, data = dataNum)
+summary(lm.fit2) 
+boxplot(dataNum$SalePrice~dataNum$GarageCars)
 abline(lm.fit2,lwd = 2, col="red")
 ```
 
+
+**finding:**
+车库四个车位 没有必要 所以买不起好价钱
+
+
+#### 2.3.2 numeric feature
+
 ```{r}
-lm.fit3 = lm(SalePrice~GarageCars, data = dataNum)
-plot(dataNum$GarageCars, dataNum$SalePrice)
+lm.fit3 = lm(SalePrice~GrLivArea, data = dataNum)
+summary(lm.fit3) 
+plot(dataNum$GrLivArea, dataNum$SalePrice)
 abline(lm.fit3,lwd = 2, col="red")
 ```
 
+**finding**：
+合理完美的线性，点均匀的分布在线的两边
+
+
 ```{r}
-lm.fit4 = lm(SalePrice~OverallQual+GarageCars, data = dataNum)
+lm.fit4 = lm(SalePrice~TotalBsmtSF, data = dataNum)
 summary(lm.fit4)
-plot(lm.fit4)
+plot(dataNum$TotalBsmtSF, dataNum$SalePrice)
+abline(lm.fit4,lwd = 2, col="red")
+```
+
+### 2.4 Multiple Feature Analysis 
+
+```{r}
+lm.fit5 = lm(SalePrice~OverallQual+GarageCars+GrLivArea, data = dataNum)
+summary(lm.fit5)
 ```
 
 ```{r}
-
+lm.fit6 = lm(SalePrice~OverallQual+GarageCars+GrLivArea+TotalBsmtSF+BsmtUnfSF+MSSubClass, data = dataNum)
+summary(lm.fit6)
 ```
 
-```{r}
 
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
 
 
