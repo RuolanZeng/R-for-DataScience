@@ -1,0 +1,75 @@
+---
+title: "Association Rules Report"
+author: "Ruolan Zeng(rxz171630), Yi Su(yxs173830)"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 0. Required Pacakages 
+
+We use three packages as following:
+
+```{r message=FALSE, warning=FALSE}
+require(readr)
+require(arules)
+require(plyr)
+```
+
+## 1. Preprocessing
+
+In this part, we preprocessed the data and convert it to a class of transactions, we use the order_products__train.csv as order data and choose the first 80,000 rows.
+
+```{r warning=FALSE}
+# load data
+order_products <- read.csv("http://www.utdallas.edu/~yxs173830/cs6301hw6/order_products__train.csv", nrows=80000)
+products_data <- read.csv("http://www.utdallas.edu/~yxs173830/cs6301hw6/products.csv")
+departments_data <- read.csv("http://www.utdallas.edu/~yxs173830/cs6301hw6/departments.csv")
+
+transection_data <- merge(order_products[,1:2], products_data, by = "product_id") 
+transection_data <- merge(transection_data, departments_data, by = "department_id")
+transection_data <- arrange(transection_data, order_id) 
+
+# Converting data to a class of transactions
+dt <- split(transection_data$product_name, transection_data$order_id)
+dt2 <- as(dt,"transactions")
+summary(dt2)
+```
+
+## 2. Frequent Items - Products
+
+```{r}
+# Frequent Items Plotting - products
+itemFrequencyPlot(dt2, topN = 20, type="absolute")
+```
+
+## 3. Association Rules - Products
+
+```{r message=FALSE}
+rules <- apriori (dt2,
+                  parameter = list(supp = 0.001, conf = 0.5))
+rules_conf <- sort (rules, by="confidence",
+                    decreasing=TRUE) 
+inspect(head(rules_conf))
+```
+
+## 4. Frequent Items - Department
+
+```{r}
+dt <- split(transection_data$department, transection_data$order_id)
+dt2 <- as(dt,"transactions")
+
+itemFrequencyPlot(dt2, topN = 20, type="absolute")
+```
+
+## 5. Association Rules - Department
+
+```{r message=FALSE}
+rules <- apriori (dt2,
+                  parameter = list(supp = 0.001, conf = 0.5))
+rules_conf <- sort (rules, by="confidence",
+                    decreasing=TRUE)
+inspect(head(rules_conf))
+```
